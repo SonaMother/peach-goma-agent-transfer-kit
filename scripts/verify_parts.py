@@ -5,20 +5,33 @@ Reassembles every file from parts/ (raw) and parts-esc/ (escaped) and
 compares byte-for-byte against the local git working tree.
 
 Usage:
-  python3 verify_parts.py local   # verify against parts/ on disk
-  python3 verify_parts.py remote  # fetch every part from GitHub raw first
+  python3 verify_parts.py local --repo-dir /path/to/project \
+      --gh-repo Owner/name [--branch main]
+  python3 verify_parts.py remote --repo-dir /path/to/project \
+      --gh-repo Owner/name [--branch main]   # fetch parts from GitHub raw
 """
+import argparse
 import hashlib
-import subprocess
-import sys
 import urllib.request
 from pathlib import Path
 
-REPO = Path("/home/z/my-project/peach-goma-project")
-RAW_BASE = ("https://raw.githubusercontent.com/"
-            "SonaMother/peach-goma-skyhop-3d-cat-platformer/main")
 ESC_MAP = {r"\u003c": "<", r"\u003e": ">", r"\u0026": "&"}
 HDR_MARK = "[PART "
+
+
+def parse_args():
+    p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    p.add_argument("mode", choices=["local", "remote"])
+    p.add_argument("--repo-dir", required=True, type=Path)
+    p.add_argument("--gh-repo", required=True, metavar="OWNER/NAME")
+    p.add_argument("--branch", default="main")
+    return p.parse_args()
+
+
+ARGS = parse_args()
+REPO: Path = ARGS.repo_dir
+RAW_BASE = (f"https://raw.githubusercontent.com/"
+            f"{ARGS.gh_repo}/{ARGS.branch}")
 
 
 def fetch(rel: str) -> bytes:
@@ -89,8 +102,8 @@ def verify(d: Path, escape: bool, src_mode: str) -> int:
 
 
 def main() -> int:
-    mode = sys.argv[1] if len(sys.argv) > 1 else "local"
-    print(f"mode={mode}")
+    mode = ARGS.mode
+    print(f"mode={mode}  repo={ARGS.gh_repo}@{ARGS.branch}")
     f1 = verify(REPO / "parts", escape=False, src_mode=mode)
     f2 = verify(REPO / "parts-esc", escape=True, src_mode=mode)
     total = f1 + f2
@@ -100,4 +113,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

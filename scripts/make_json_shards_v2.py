@@ -10,7 +10,12 @@ v3 changes vs v2:
   \u0026 in the final JSON text -> tag-strippers have literally nothing to match.
 - Single-line compact JSON -> newline-collapsers have nothing to join.
 - Shards <= 8KB on the wire (under every cap observed so far).
+
+Usage:
+  python3 make_json_shards_v2.py --repo-dir /path/to/project \
+      --gh-repo Owner/name [--branch main] [--project-name "My Project"]
 """
+import argparse
 import hashlib
 import json
 import subprocess
@@ -18,7 +23,23 @@ from bisect import bisect_right
 from datetime import datetime, timezone
 from pathlib import Path
 
-REPO = Path("/home/z/my-project/peach-goma-project")
+
+def parse_args():
+    p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    p.add_argument("--repo-dir", required=True, type=Path)
+    p.add_argument("--gh-repo", required=True, metavar="OWNER/NAME")
+    p.add_argument("--branch", default="main")
+    p.add_argument("--project-name", default=None,
+                   help="human-readable name; default = name part of --gh-repo")
+    return p.parse_args()
+
+
+args = parse_args()
+REPO: Path = args.repo_dir
+PROJECT = args.project_name or args.gh_repo.split("/")[1]
+SLUG = "-".join(s for s in
+                "".join(c if c.isalnum() else "-" for c in PROJECT.lower()).split("-")
+                if s) or "recreate"
 BUNDLE = REPO / "bundle"
 BUNDLE.mkdir(exist_ok=True)
 COMMIT = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO, text=True).strip()
@@ -91,7 +112,8 @@ for k, plist in enumerate(shards, 1):
     name = f"shard-{k:02d}.json"
     for p in plist:
         p["shard"] = name
-    obj = {"bundle": "peach-goma-skyhop-recreate", "layout": "parts-v3",
+    obj = {"bundle": f"{SLUG}-recreate",
+           "layout": "parts-v3",
            "commit": COMMIT, "shard": name, "parts": plist}
     out = BUNDLE / name
     out.write_text(dumps(obj), encoding="utf-8")
@@ -107,9 +129,9 @@ part_index = [{"shard": p["shard"], "path": p["path"], "seq": p["seq"], "of": p[
 # group shard entries by path themselves. INDEX stays a single <=8KB file.
 
 index = {
-    "bundle": "peach-goma-skyhop-recreate",
+    "bundle": f"{SLUG}-recreate",
     "layout": "parts-v3",
-    "repo": "SonaMother/peach-goma-skyhop-3d-cat-platformer",
+    "repo": args.gh_repo,
     "commit": COMMIT,
     "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S"),
     "why": ("Fetch-only agents: every bundle file contains ZERO raw < > & characters "
@@ -129,12 +151,12 @@ index = {
                "shards": len(shards), "parts": len(parts), "max_shard_bytes": SHARD_CAP},
     "regenerable": {"package-lock.json": "npm install regenerates it; skip its parts if capped"},
     "alternate_channels": {
-        "npm_as_transport": ("BEST if npm works: npm install github:SonaMother/peach-goma-skyhop-3d-cat-platformer"
-                             " -> repo lands byte-exact in node_modules/react-vite-tailwind/ (see package.json name)"),
-        "shell": "git clone https://github.com/SonaMother/peach-goma-skyhop-3d-cat-platformer.git",
-        "unzip": ".../raw/main/gameproject.zip (byte-exact archive)",
+        "npm_as_transport": (f"BEST if npm works: npm install github:{args.gh_repo}"
+                             " -> repo lands byte-exact in node_modules/<see package.json name>/"),
+        "shell": f"git clone https://github.com/{args.gh_repo}.git",
+        "unzip": f"https://github.com/{args.gh_repo}/raw/{args.branch}/gameproject.zip (byte-exact archive, if present)",
         "code_exec": ("Contents API JSON+base64, tag-proof, per file: "
-                      "https://api.github.com/repos/SonaMother/peach-goma-skyhop-3d-cat-platformer/contents/<path>?ref=main"),
+                      f"https://api.github.com/repos/{args.gh_repo}/contents/<path>?ref={args.branch}"),
         "human": "RECREATE_PROJECT.md in repo root (only if your fetcher does NOT strip tags)",
     },
     "files": files_meta,

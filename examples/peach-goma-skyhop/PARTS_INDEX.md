@@ -18,8 +18,8 @@ collapses newlines: no plain-text channel can work for you. Stop and
 use npm (see AGENT_PROMPT.txt) or the JSON bundle bundle/INDEX.json.
 
 ## THE LOOP (your whole job)
-1. Run npm install once now. It regenerates package-lock.json, which
-   is intentionally not shipped here.
+1. Run `npm install` once now; it regenerates the lockfile,
+   which is intentionally not shipped here.
 2. Process parts strictly in order: p001, p002, p003, ...
    ONE part per fetch: write it (step 4) BEFORE fetching the next.
    Never fetch ahead of your writes. Part filenames follow one rule:
@@ -91,8 +91,10 @@ raw = parts/, esc = parts-esc/. Byte sizes refer to the real files.
 Totals: raw 81 parts, esc 84 parts. Every part is <= 100 lines and <= 4000 bytes.
 
 ## Sanity anchors (check these instead of trusting yourself)
-- src/main.tsx is 230 bytes and starts with: import { StrictMode }
-- index.html is 783 bytes and references /src/main.tsx (Vite, not CRA;
-  any %PUBLIC_URL% means you fabricated it - redo that file)
-- src/character/Cat.tsx is 58,242 bytes, the largest file
-- The game builds with: npm install && npm run dev
+- The project ships 34 files, 223,453 bytes of source in total.
+- src/character/Cat.tsx is 58,242 bytes - the largest file. If yours
+  is smaller, you truncated it: redo that file, never guess lines.
+- .gitignore contains the line: # dependencies
+- Any file whose size or contents differ from the table above means
+  you fabricated or truncated it - redo that file from its parts.
+- The project builds with: npm install && npm run dev
