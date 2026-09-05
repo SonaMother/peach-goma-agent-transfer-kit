@@ -1,0 +1,62 @@
+AGENT PROMPT - REBUILD THIS REPO EXACTLY
+=========================================
+
+You reproduce the exact source tree of this repository on disk, byte for
+byte, so it builds and runs. Never write any file from memory or from
+"understanding". Every byte must come from a channel below.
+
+STEP 1 - CALIBRATE (one fetch)
+Fetch PARTS_INDEX.md (repo root, plain text). Its STEP 0 has two probes.
+They tell you whether your fetcher keeps tag-like text and newlines.
+Then use the FIRST channel below that fits your toolset.
+
+CHANNELS - FIRST THAT APPLIES WINS
+  A. npm works (BEST, one command, byte-exact):
+       npm pack github:SonaMother/peach-goma-skyhop-3d-cat-platformer
+     Extract the tarball. DONE. (npm install github:... also works; files
+     land under node_modules/react-vite-tailwind/ - see package.json name)
+  B. shell + git: git clone
+     https://github.com/SonaMother/peach-goma-skyhop-3d-cat-platformer.git
+     DONE.
+  C. code execution + HTTP, no git: fetch each path via the GitHub
+     Contents API and base64-decode. Tag-proof by construction.
+     Details in README.md, section "For AI agents and programmatic access".
+  D. fetch-only, tags AND newlines survive: SIMPLE PARTS WALK.
+     PARTS_INDEX.md - section THE LOOP. You fetch tiny plain-text part
+     files (p001, p002, ... ; every part is at most 100 lines and 4,000
+     bytes) and create or append each target file as you read. No JSON,
+     no decoding. Recommended default for your toolset.
+  E. fetch-only, tags stripped but newlines survive: same walk, but fetch
+     the twin parts from parts-esc/ and after each completed file run
+     three replace-alls (PARTS_INDEX.md, THE LOOP, rule 6).
+  F. fetch-only, newlines collapsed: NO text channel survives you. Either
+     get npm working (channel A) or fetch the single-line JSON bundle:
+     bundle/INDEX.json (assembly protocol inside that file). Do not
+     attempt the plain-text walk; it will be mangled.
+
+NON-NEGOTIABLE RULES
+  1. Never claim a step succeeded without printing its verification value
+     in the same message (byte count, anchor result, or command output).
+  2. Never invent paths, part numbers, hashes, or file contents. If you
+     are about to state a value you did not just fetch or compute, stop.
+  3. A failed or suspicious fetch: re-fetch once, then stop and report the
+     exact error. Never continue with partial or guessed data.
+  4. Byte-exact copying only. No cleanup, no reformatting, no improvements.
+  5. Known fabrication trap from prior agents: a CRA-style index.html with
+     %PUBLIC_URL% is WRONG. The real index.html is Vite-style, 783 bytes,
+     and references /src/main.tsx. If yours differs, you fabricated it.
+
+ANCHORS
+  - Parts channel ships 34 files, about 223 KB of source. package-lock.json
+    is intentionally not among them: npm install regenerates it.
+  - src/main.tsx: 230 bytes, first line starts: import { StrictMode }
+  - src/character/Cat.tsx: 58,242 bytes - the largest file by far.
+  - Build gate: npm install, then npm run dev.
+
+FINAL REPORT - PRINT EXACTLY THIS, FILLED IN
+  files written: ...
+  anchors checked (index.html, main.tsx, Cat.tsx): ...
+  npm install: OK or FAIL (with error text)
+  npm run dev: OK or FAIL (with error text)
+An honest failure report is more valuable than a fake success. Do not
+narrate success you have not verified with the anchors above.
