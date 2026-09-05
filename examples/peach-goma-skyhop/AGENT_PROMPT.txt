@@ -50,10 +50,10 @@ NON-NEGOTIABLE RULES
      disk can fall out of your context later. Never fetch ahead of writes.
 
 ANCHORS
-  - Parts channel ships 34 files, about 218 KB of source.
+  - Parts channel ships 34 files, about 228 KB of source.
   - The lockfile (package-lock.json) is intentionally not among them:
     npm install regenerates it.
-  - src/character/Cat.tsx: 58,242 bytes - the largest file by far.
+  - src/character/Cat.tsx: 60,051 bytes - the largest file by far.
   - Build gate: npm install, then npm run dev.
 
 FINAL REPORT - PRINT EXACTLY THIS, FILLED IN

@@ -48,7 +48,7 @@ use npm (see AGENT_PROMPT.txt) or the JSON bundle bundle/INDEX.json.
    greater-than sign, \u0026 with the ampersand.
 7. After the last part: npm run dev. Done.
 
-## PART TABLE (34 files, 223,453 bytes of source)
+## PART TABLE (34 files, 233,970 bytes of source)
 raw = parts/, esc = parts-esc/. Byte sizes refer to the real files.
 
 | file | bytes | raw parts | esc parts |
@@ -58,41 +58,41 @@ raw = parts/, esc = parts-esc/. Byte sizes refer to the real files.
 | index.html | 783 | p005 (1) | p005 (1) |
 | package.json | 784 | p006 (1) | p006 (1) |
 | src/App.tsx | 3,143 | p007 (1) | p007 (1) |
-| src/character/Cat.tsx | 58,242 | p008-p023 (16) | p008-p024 (17) |
-| src/character/Part.tsx | 1,234 | p024 (1) | p025 (1) |
-| src/character/README.md | 3,887 | p025 (1) | p026 (1) |
-| src/character/expressions.ts | 8,337 | p026-p028 (3) | p027-p029 (3) |
-| src/character/materials.ts | 3,982 | p029-p030 (2) | p030-p031 (2) |
-| src/character/palettes.ts | 1,473 | p031 (1) | p032 (1) |
-| src/character/poses.ts | 11,818 | p032-p035 (4) | p033-p036 (4) |
-| src/character/springs.ts | 3,524 | p036-p037 (2) | p037-p038 (2) |
-| src/game/sfx.ts | 6,504 | p038-p039 (2) | p039-p040 (2) |
-| src/game/store.ts | 3,826 | p040-p041 (2) | p041-p042 (2) |
-| src/game/useInput.ts | 3,901 | p042-p043 (2) | p043-p044 (2) |
-| src/game/world.ts | 8,483 | p044-p046 (3) | p045-p047 (3) |
-| src/index.css | 2,471 | p047 (1) | p048 (1) |
-| src/main.tsx | 230 | p048 (1) | p049 (1) |
-| src/scenes/GameOverScene.tsx | 4,821 | p049-p050 (2) | p050-p051 (2) |
-| src/scenes/GameScene.tsx | 21,329 | p051-p057 (7) | p052-p058 (7) |
-| src/scenes/LabScene.tsx | 3,505 | p058 (1) | p059 (1) |
-| src/scenes/MenuScene.tsx | 4,572 | p059-p060 (2) | p060-p061 (2) |
-| src/three-jsx.d.ts | 164 | p061 (1) | p062 (1) |
-| src/ui/Overlays.tsx | 19,065 | p062-p066 (5) | p063-p068 (6) |
-| src/ui/Sky.tsx | 1,066 | p067 (1) | p069 (1) |
-| src/utils/cn.ts | 169 | p068 (1) | p070 (1) |
-| src/world/Backdrop.tsx | 6,887 | p069-p070 (2) | p071-p072 (2) |
-| src/world/Items.tsx | 8,770 | p071-p073 (3) | p073-p075 (3) |
-| src/world/Particles.tsx | 6,631 | p074-p075 (2) | p076-p077 (2) |
-| src/world/Platform.tsx | 10,904 | p076-p078 (3) | p078-p081 (4) |
-| src/world/geometries.ts | 3,032 | p079 (1) | p082 (1) |
-| tsconfig.json | 681 | p080 (1) | p083 (1) |
-| vite.config.ts | 538 | p081 (1) | p084 (1) |
+| src/character/Cat.tsx | 60,051 | p008-p024 (17) | p008-p024 (17) |
+| src/character/Part.tsx | 1,234 | p025 (1) | p025 (1) |
+| src/character/README.md | 3,887 | p026 (1) | p026 (1) |
+| src/character/expressions.ts | 8,337 | p027-p029 (3) | p027-p029 (3) |
+| src/character/materials.ts | 3,982 | p030-p031 (2) | p030-p031 (2) |
+| src/character/palettes.ts | 1,473 | p032 (1) | p032 (1) |
+| src/character/poses.ts | 12,248 | p033-p036 (4) | p033-p036 (4) |
+| src/character/springs.ts | 3,524 | p037-p038 (2) | p037-p038 (2) |
+| src/game/sfx.ts | 7,544 | p039-p040 (2) | p039-p041 (3) |
+| src/game/store.ts | 3,826 | p041-p042 (2) | p042-p043 (2) |
+| src/game/useInput.ts | 4,098 | p043-p044 (2) | p044-p045 (2) |
+| src/game/world.ts | 8,615 | p045-p047 (3) | p046-p048 (3) |
+| src/index.css | 2,471 | p048 (1) | p049 (1) |
+| src/main.tsx | 230 | p049 (1) | p050 (1) |
+| src/scenes/GameOverScene.tsx | 4,821 | p050-p051 (2) | p051-p052 (2) |
+| src/scenes/GameScene.tsx | 25,806 | p052-p059 (8) | p053-p060 (8) |
+| src/scenes/LabScene.tsx | 3,753 | p060 (1) | p061-p062 (2) |
+| src/scenes/MenuScene.tsx | 5,586 | p061-p062 (2) | p063-p064 (2) |
+| src/three-jsx.d.ts | 164 | p063 (1) | p065 (1) |
+| src/ui/Overlays.tsx | 19,812 | p064-p069 (6) | p066-p071 (6) |
+| src/ui/Sky.tsx | 1,066 | p070 (1) | p072 (1) |
+| src/utils/cn.ts | 169 | p071 (1) | p073 (1) |
+| src/world/Backdrop.tsx | 6,887 | p072-p073 (2) | p074-p075 (2) |
+| src/world/Items.tsx | 8,770 | p074-p076 (3) | p076-p078 (3) |
+| src/world/Particles.tsx | 6,903 | p077-p078 (2) | p079-p080 (2) |
+| src/world/Platform.tsx | 10,985 | p079-p081 (3) | p081-p084 (4) |
+| src/world/geometries.ts | 3,102 | p082 (1) | p085 (1) |
+| tsconfig.json | 681 | p083 (1) | p086 (1) |
+| vite.config.ts | 538 | p084 (1) | p087 (1) |
 
-Totals: raw 81 parts, esc 84 parts. Every part is <= 100 lines and <= 4000 bytes.
+Totals: raw 84 parts, esc 87 parts. Every part is <= 100 lines and <= 4000 bytes.
 
 ## Sanity anchors (check these instead of trusting yourself)
-- The project ships 34 files, 223,453 bytes of source in total.
-- src/character/Cat.tsx is 58,242 bytes - the largest file. If yours
+- The project ships 34 files, 233,970 bytes of source in total.
+- src/character/Cat.tsx is 60,051 bytes - the largest file. If yours
   is smaller, you truncated it: redo that file, never guess lines.
 - .gitignore contains the line: # dependencies
 - Any file whose size or contents differ from the table above means
