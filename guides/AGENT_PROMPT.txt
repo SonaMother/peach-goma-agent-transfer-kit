@@ -22,10 +22,11 @@ CHANNELS - FIRST THAT APPLIES WINS
      Contents API and base64-decode. Tag-proof by construction.
      Details in README.md, section "For AI agents and programmatic access".
   D. fetch-only, tags AND newlines survive: SIMPLE PARTS WALK.
-     PARTS_INDEX.md - section THE LOOP. You fetch tiny plain-text part
-     files (p001, p002, ... ; every part is at most 100 lines and 4,000
-     bytes) and create or append each target file as you read. No JSON,
-     no decoding. Recommended default for your toolset.
+     PARTS_INDEX.md - section THE LOOP. ONE part per fetch: fetch a
+     tiny part (p001, p002, ... ; max 100 lines / 4,000 bytes), then
+     create-or-append its target file IMMEDIATELY, then fetch the
+     next. Never fetch ahead of your writes. No JSON, no decoding.
+     Recommended default for your toolset.
   E. fetch-only, tags stripped but newlines survive: same walk, but fetch
      the twin parts from parts-esc/ and after each completed file run
      three replace-alls (PARTS_INDEX.md, THE LOOP, rule 6).
@@ -45,6 +46,8 @@ NON-NEGOTIABLE RULES
   5. Known fabrication trap from prior agents: a CRA-style index.html with
      %PUBLIC_URL% is WRONG. The real index.html is Vite-style, 783 bytes,
      and references /src/main.tsx. If yours differs, you fabricated it.
+  6. One part in, one write out. Fetched text you have not written to
+     disk can fall out of your context later. Never fetch ahead of writes.
 
 ANCHORS
   - Parts channel ships 34 files, about 223 KB of source. package-lock.json

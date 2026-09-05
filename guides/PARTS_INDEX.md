@@ -20,8 +20,9 @@ use npm (see AGENT_PROMPT.txt) or the JSON bundle bundle/INDEX.json.
 ## THE LOOP (your whole job)
 1. Run npm install once now. It regenerates package-lock.json, which
    is intentionally not shipped here.
-2. Process parts strictly in order: p001, p002, p003, ... (one
-   fetch per part). Part filenames follow one rule:
+2. Process parts strictly in order: p001, p002, p003, ...
+   ONE part per fetch: write it (step 4) BEFORE fetching the next.
+   Never fetch ahead of your writes. Part filenames follow one rule:
    pNNN__<file path, with / written as __>__partKKofNN.txt
    Example: p008__src__character__Cat.tsx__part01of17.txt holds the start of src/character/Cat.tsx.
    Cannot list a folder? https://ungh.cc/repos/SonaMother/peach-goma-skyhop-3d-cat-platformer/files/main
@@ -34,7 +35,12 @@ use npm (see AGENT_PROMPT.txt) or the JSON bundle bundle/INDEX.json.
    It is a label only - NEVER copy it into the target file.
 4. Write as you read: part k=1 -> create the file with the remaining
    lines exactly as they are; parts k>1 -> append to the same file.
-   Never hold whole files in memory; never rewrite from memory.
+   Write immediately after each fetch: text you have not written down
+   can fall out of your context later. Never hold whole files in
+   memory; never rewrite from memory; never stack up unwritten parts.
+   If a hard tool-step budget makes one-at-a-time impossible, fetch
+   at most one file's parts ahead, and still write each part as it
+   arrives.
 5. When you consume the part whose header shows k equal to n, that
    file is complete. Move to the next part number.
 6. parts-esc only: right after a file is complete, replace-all three
